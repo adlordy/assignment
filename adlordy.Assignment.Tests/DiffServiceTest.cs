@@ -1,6 +1,5 @@
 ﻿using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using adlordy.Assignment.Contracts;
 using adlordy.Assignment.Services;
 using adlordy.Assignment.Models;
 using System.Linq;

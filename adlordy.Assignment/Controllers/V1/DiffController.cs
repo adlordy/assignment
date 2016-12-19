@@ -1,6 +1,5 @@
 ﻿using adlordy.Assignment.Contracts;
 using adlordy.Assignment.Models;
-using adlordy.Assignment.Services;
 using System.Net;
 using System.Web.Http;
 
@@ -13,75 +12,49 @@ namespace adlordy.Assignment.Controllers.V1
     public class DiffController : ApiController
     {
         /// <summary>
-        /// Private static variables to hold application state.
-        /// </summary>
-        /// <remarks>
-        /// Since there are no requirements on persistance of the application state the simplest approach of storing in memory was chosen.
-        /// This can be futher refactored to support storage in different place/
-        /// </remarks>
-        private static byte[] _left, _right;
-        /// <summary>
         /// Reference to the service that does the actual diff.
         /// </summary>
         private readonly IDiffService _diffService;
+        private readonly IStateService _stateService;
 
         /// <summary>
         /// A constructor that accepts IDiffService contract implemetation.
         /// </summary>
-        /// <param name="diffService">Diff Service</param>
-        public DiffController(IDiffService diffService)
+        public DiffController(IStateService stateService, IDiffService diffService)
         {
+            _stateService = stateService;
             _diffService = diffService;
         }
 
         /// <summary>
-        /// This is a default constructor for demo purposes only. In a real application the service implementatioon will be injected 
-        /// by DI framework using method above.
+        /// Sets the left or right side of the diff arguments.
         /// </summary>
-        public DiffController() : this(new DiffService())
-        {
-        }
-
-        /// <summary>
-        /// Sets the left side of the diff arguments.
-        /// </summary>
-        /// <param name="left">Left argument</param>
         /// <returns>Action result</returns>
-        [HttpPost, Route("left")]
-        public IHttpActionResult SetLeft([FromBody] DiffModel left)
+        [HttpPut, Route("{id}/{side}")]
+        public IHttpActionResult Set([FromUri] string id, [FromUri] Side side, [FromBody] DiffModel model)
         {
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
-            _left = left.Data;
-            return Ok(HttpStatusCode.NoContent);
-        }
-
-        /// <summary>
-        /// Sets the right side of the diff arguments.
-        /// </summary>
-        /// <param name="right">Right argument</param>
-        /// <returns>Action result</returns>
-        [HttpPost, Route("right")]
-        public IHttpActionResult SetRight([FromBody] DiffModel right)
-        {
-            if (!ModelState.IsValid)
-                return BadRequest(ModelState);
-            _right = right.Data;
-            return Ok(HttpStatusCode.NoContent);
+            _stateService.Set(id, side, model.Data);
+            return StatusCode(HttpStatusCode.Accepted);
         }
 
         /// <summary>
         /// Gets the result of diff for the arguments set by v1/diff/left and v1/diff/right calls.
         /// </summary>
         /// <returns>Action result. <see cref="DiffResult"/> </returns>
-        [HttpGet, Route("")]
-        public IHttpActionResult GetResult()
+        [HttpGet, Route("{id}")]
+        public IHttpActionResult GetResult([FromUri] string id)
         {
-            if (_left == null)
-                return BadRequest("Left not set");
-            if (_right == null)
-                return BadRequest("Right not set");
-            return Ok(_diffService.GetDiff(_left, _right));
+            var left = _stateService.Get(id, Side.Left);
+            if (left == null)
+                return NotFound();
+
+            var right = _stateService.Get(id, Side.Right);
+            if (right == null)
+                return NotFound();
+
+            return Ok(_diffService.GetDiff(left, right));
         }
     }
 }
