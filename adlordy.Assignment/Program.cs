@@ -7,7 +7,7 @@ namespace adlordy.Assignment
     {
         static void Main(string[] args)
         {
-            var baseAddress = "http://localhost:8081";
+            var baseAddress = args.Length == 1 ? args[0] : "http://*:8081";
             using (WebApp.Start<Startup>(baseAddress))
             {
                 Console.WriteLine("Listening at " + baseAddress);
