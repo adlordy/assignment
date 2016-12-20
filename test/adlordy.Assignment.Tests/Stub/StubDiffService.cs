@@ -1,12 +1,12 @@
 ﻿using adlordy.Assignment.Contracts;
 using adlordy.Assignment.Models;
 
-namespace adlordy.Assignment.Tests.Dummy
+namespace adlordy.Assignment.Tests.Stub
 {
     /// <summary>
     /// Dummy IDiffService implementation for unit testing.
     /// </summary>
-    internal class DummyDiffService : IDiffService
+    internal class StubDiffService : IDiffService
     {
         /// <summary>
         /// Always returns Equals. 
