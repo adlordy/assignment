@@ -1,0 +1,28 @@
+﻿{
+    "version": "1.0.0-*",
+    "testRunner": "xunit",
+
+    "dependencies": {
+        "Microsoft.NETCore.App": {
+            "type": "platform",
+            "version": "1.0.0"
+        },
+        "adlordy.Assignment": "*",
+        "xunit": "2.2.0-beta4-build3444",
+        "dotnet-test-xunit": "2.2.0-preview2-build1029",
+        "Microsoft.Extensions.Configuration": "1.1.0",
+        "Microsoft.Extensions.Configuration.EnvironmentVariables": "1.0.0",
+        "Newtonsoft.Json": "9.0.1"
+    },
+
+    "frameworks": {
+        "netcoreapp1.0": {
+            "imports": "dnxcore50"
+        }
+    },
+    "buildOptions": {
+        "copyToOutput": {
+            "include": [ "xunit.runner.json" ]
+        }
+    }
+}
