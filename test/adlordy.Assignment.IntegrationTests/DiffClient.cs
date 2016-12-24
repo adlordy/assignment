@@ -1,9 +1,11 @@
-﻿using adlordy.Assignment.Models;
+﻿
+using System;
 using System.Net;
 using System.Net.Http;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
 using System.Threading.Tasks;
+using adlordy.Assignment.Models;
 
 namespace adlordy.Assignment.IntegrationTests
 {
@@ -50,7 +52,8 @@ namespace adlordy.Assignment.IntegrationTests
         private async Task PutAsync(string url, byte[] data)
         {
             var response = await _client.PutAsJsonAsync(url, new DiffModel { Data = data }, _serializer);
-            response.EnsureSuccessStatusCode();
+            if (response.StatusCode != HttpStatusCode.Accepted && response.StatusCode != HttpStatusCode.Created)
+                throw new ArgumentException("Endpoint did not accept request. Status Code: "+response.StatusCode);
         }
 
         private string CreateGetUri(string id)

@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Linq;
+using System.Net.Http;
 using System.Threading.Tasks;
 using Xunit;
 
@@ -36,7 +38,15 @@ namespace adlordy.Assignment.IntegrationTests
         [Fact]
         public void TestBadRequest_WhenDataIsNull()
         {
-            Assert.Throws<AggregateException>(() => _client.PutLeftAsync("4", null).Wait());
+            Assert.Throws<ArgumentException>(() => {
+                try
+                {
+                    _client.PutLeftAsync("4", null).Wait();
+                } catch(AggregateException ex)
+                {
+                    throw ex.Flatten().InnerExceptions.First();
+                }
+            });
         }
     }
 }

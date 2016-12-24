@@ -17,7 +17,6 @@ namespace adlordy.Assignment
                 .UseKestrel()
                 .UseContentRoot(Directory.GetCurrentDirectory())
                 .UseConfiguration(config)
-                .UseIISIntegration()
                 .UseStartup<Startup>()
                 .Build();
 

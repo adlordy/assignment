@@ -1,5 +1,4 @@
-﻿using adlordy.Assignment.Services;
-using adlordy.Assignment.Models;
+﻿using adlordy.Assignment.Models;
 using System.Linq;
 using Xunit;
 using System;
@@ -21,7 +20,7 @@ namespace adlordy.Assignment.IntegrationTests
         [InlineData(new byte[0],null)]
         public void TestNull(byte[] left, byte[] right)
         {
-            Assert.Throws<AggregateException>(() => _service.GetDiff(left, right));
+            Assert.Throws<ArgumentException>(() => _service.GetDiff(left, right));
         }
         
         [Fact]

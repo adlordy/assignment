@@ -1,14 +1,7 @@
-FROM microsoft/windowsservercore
+FROM microsoft/dotnet
+WORKDIR /dotnetapp
 
-RUN mkdir "C:\Setup"
+COPY . . 
+RUN dotnet restore
 
-COPY ./adlordy.Assignment/bin/Release C:/Setup
-WORKDIR "C:\Setup"
-
-CMD ".\adlordy.Assignment.exe"
-
-EXPOSE 8081
-
-
-
-
+CMD dotnet test -c Release test/adlordy.Assignment.IntegrationTests/project.json  -json -nologo

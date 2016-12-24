@@ -1,5 +1,7 @@
 ﻿using adlordy.Assignment.Contracts;
 using adlordy.Assignment.Models;
+using System;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -19,12 +21,18 @@ namespace adlordy.Assignment.IntegrationTests
         public DiffResult GetDiff(byte[] left, byte[] right)
         {
             var id = Interlocked.Increment(ref _seed).ToString();
-            return Task.Run(async () =>
+            try
             {
-                await _client.PutLeftAsync(id, left);
-                await _client.PutRightAsync(id, right);
-                return await _client.GetAsync(id);
-            }).Result;
+                return Task.Run(async () =>
+                {
+                    await _client.PutLeftAsync(id, left);
+                    await _client.PutRightAsync(id, right);
+                    return await _client.GetAsync(id);
+                }).Result;
+            } catch(AggregateException ex)
+            {
+                throw ex.Flatten().InnerExceptions.First();
+            }
         }
     }
 }
