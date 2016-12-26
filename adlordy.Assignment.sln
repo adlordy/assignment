@@ -24,6 +24,8 @@ Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "adlordy.Assignment.Integrat
 EndProject
 Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "adlordy.Assignment.Models", "src\adlordy.Assignment.Models\adlordy.Assignment.Models.xproj", "{59171F4A-8F1C-4735-9264-32D1FD6E1C98}"
 EndProject
+Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "adlordy.Assignment.DockerTest", "test\adlordy.Assignment.DockerTest\adlordy.Assignment.DockerTest.xproj", "{4B8DBF38-02F8-4F5C-8F30-4CD29CFEEC11}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -46,6 +48,10 @@ Global
 		{59171F4A-8F1C-4735-9264-32D1FD6E1C98}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{59171F4A-8F1C-4735-9264-32D1FD6E1C98}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{59171F4A-8F1C-4735-9264-32D1FD6E1C98}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4B8DBF38-02F8-4F5C-8F30-4CD29CFEEC11}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4B8DBF38-02F8-4F5C-8F30-4CD29CFEEC11}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4B8DBF38-02F8-4F5C-8F30-4CD29CFEEC11}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4B8DBF38-02F8-4F5C-8F30-4CD29CFEEC11}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -55,5 +61,6 @@ Global
 		{38647F21-7A84-455C-B6A8-BD0BF18D815A} = {17F0DD8A-8A82-4A64-8D73-16EE19074859}
 		{75A3F7C8-3865-4017-B744-352C7D46DBFC} = {17F0DD8A-8A82-4A64-8D73-16EE19074859}
 		{59171F4A-8F1C-4735-9264-32D1FD6E1C98} = {3869B096-08FE-4522-BC7E-8A5CABA080BF}
+		{4B8DBF38-02F8-4F5C-8F30-4CD29CFEEC11} = {17F0DD8A-8A82-4A64-8D73-16EE19074859}
 	EndGlobalSection
 EndGlobal

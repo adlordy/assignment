@@ -1,0 +1,14 @@
+{
+    "compilerOptions": {
+        "noImplicitAny": true,
+        "noEmitOnError": true,
+        "module": "none",
+        "target": "es5",
+        "outFile": "wwwroot/js/all.js"
+    },
+    "compileOnSave": true,
+    "exclude": [
+        "node_modules",
+        "wwwroot"
+    ]
+}

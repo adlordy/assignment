@@ -1,0 +1,22 @@
+{
+  "name": "adlordy.assignment.docker-test",
+  "description": "",
+  "main": "index.js",
+  "authors": [
+    "Bulat Gafurov"
+  ],
+  "license": "ISC",
+  "homepage": "https://github.com/adlordy/assignment",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "bootstrap": "^3.3.7",
+    "angular": "angularjs#^1.6.1"
+  }
+}

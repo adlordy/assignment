@@ -6,6 +6,7 @@ using adlordy.Assignment.Contracts;
 
 namespace adlordy.Assignment.IntegrationTests
 {
+    [Collection("Diff Tests")]
     public class DiffServiceTest : IClassFixture<HttpClientFixture>
     {
         private IDiffService _service;

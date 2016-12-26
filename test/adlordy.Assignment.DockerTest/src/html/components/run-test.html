@@ -1,0 +1,55 @@
+﻿<div class="container">
+    <div class="row">
+        <div class="col-sm-12">
+            <h3>
+                Run Test
+            </h3>
+            <div class="col-sm-6 col-sm-offset-3">
+                <form ng-submit="$ctrl.submit()" class="form-horizontal" novalidate>
+                    <fieldset>
+                        <legend>End-point</legend>
+                        <div class="form-group">
+                            <label for="url" class="control-label col-sm-4">End-point URL</label>
+                            <div class="col-sm-8">
+                                <input type="text" class="form-control" name="url" id="url" ng-model="$ctrl.url" required />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-sm-offset-4 col-sm-8">
+                                <input type="submit" class="btn btn-primary" value="Submit" ng-disabled="$ctrl.inProgress" />
+                                <span class="text-primary" ng-if="$ctrl.inProgress">Running tests...</span>
+                            </div>
+                        </div>
+                    </fieldset>
+                </form>
+            </div>
+        </div>
+        <div class="col-sm-6 col-sm-offset-3" ng-if="$ctrl.error">
+            <div class="alert alert-danger">
+                <strong>{{$ctrl.error.statusText}} ({{$ctrl.error.status}})</strong>
+                {{$ctrl.error.data | json}}
+            </div>
+        </div>
+        <div class="col-sm-6 col-sm-offset-3" ng-if="$ctrl.results">
+            <div class="alert" ng-class='{"alert-success":$ctrl.allPassed(),"alert-warning":!$ctrl.allPassed()}'>
+                <ul class="list-group">
+                    <li class="list-group-item" ng-repeat="collection in $ctrl.results.collections">
+                        <b>{{collection.collectionName}}</b>
+
+                        <dl class="dl-horizontal">
+                            <dt>Run:</dt>
+                            <dd><span class="badge">{{collection.testsRun}}</span></dd>
+                            <dt>Failed:</dt>
+                            <dd><span class="badge">{{collection.testsFailed}}</span></dd>
+                        </dl>
+
+                        <span ng-repeat="test in collection.tests" title="{{test.testName}} time: {{test.executionTime}}">
+                            <span class="text-success glyphicon glyphicon-ok" ng-if="test.passed"></span>
+                            <span class="text-danger glyphicon glyphicon-remove" ng-if="!test.passed"></span>
+                        </span>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
