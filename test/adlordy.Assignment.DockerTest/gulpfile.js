@@ -11,7 +11,7 @@ gulp.task("vendor:js", function () {
 
 gulp.task("vendor:css", function () {
     return gulp.src([
-            "bower_components/bootstrap/dist/css/bootstrat.css",
+            "bower_components/bootstrap/dist/css/bootstrap.css",
             "bower_components/bootstrap/dist/css/bootstrap-theme.css",
     ])
     .pipe(gulp.dest("wwwroot/css"));
