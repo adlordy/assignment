@@ -1,30 +1,120 @@
-﻿Diff Assingment
-===============
-## Running
+﻿### Required features
+    
+- Provide 2 http endpoints (`<host>/v1/diff/<ID>/left` and `<host>/v1/diff/<ID>/right`) that accept JSON containing base64 encoded binary data on both endpoints.
+- The provided data needs to be diff-ed and the results shall be available on a third end point (`<host>/v1/diff/<ID>`). The results shall provide the following info in JSON format: 
+  - If equal return that
+  - If not of equal size just return that
+  - If of same size provide insight in where the diff are, actual diffs are not needed.
+    - So mainly offsets + length in the data
 
-* Compile **adlordy.Assignment** using  Visual Studio 2015
-* Start **OWIN** self-hosted Web API service by running console
-* "Listening at http://localhost:8081" message will appear.
-* Use **REST** debugging tools such as [Postman](https://chrome.google.com/webstore/detail/postman/fhbjgbiflinjbdggehcddcbncdddomop?hl=en) to
-submit following requests
-* Send **POST** following JSON `{data:"dGVzdA=="}` to http://localhost:8081/v1/diff/1/left 
-with `Content-Type: application/json` header
-* Send **POST**  following JSON `{data:"dGVzcw=="}` to http://localhost:8081/v1/diff/1/right
-with `Content-Type: application/json` header
-* Send **GET** to http://localhost:8081/v1/1/diff with `Accept: application/json` header
-* You should get following a result:
-```json
+Make assumptions in the implementation explicit, choices are good but need to be communicated.
+
+Upload code to a public repository using GIT.
+
+  
+### Required technology
+- C#
+- Functionality shall be under integration tests
+- Internal logic shall be under unit tests 
+- Documentation in code
+- Short readme on usage
+ 
+### Sample input/output
+
+<table>
+<thead>
+<tr>
+    <td>End-point</td>
+    <td>Request</td>
+    <td>Response</td>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>
+PUT left
+<pre>
 {
-    "diffResultType": "ContentDoNotMatch",
-    "diffs": [
-        {
-            "offset": 3,
-            "length": 1
-        }
-    ]
+  "data": "AAAAAA=="
 }
-```
-
-## Testing
-
-Use Visual Studio 2015 to run the tests located in **adlordy.Assignment.Tests** project. 
+</pre>
+</td>
+<td>201 Created</td>
+</tr>
+<tr>
+<td>2</td>
+<td>
+PUT right<pre>
+{
+  "data": "AAAAAA=="
+}
+</pre>
+</td>
+<td>201 Created</td>
+</tr>
+<tr>
+<td>3</td>
+<td>GET</td>
+<td>200 OK
+<pre>
+{
+  "diffResultType": "Equals"
+}
+</pre>
+</td>
+</tr>
+<tr>
+<td>4</td><td>PUT right
+<pre>
+{
+  "data": "AQABAQ=="
+}</pre>
+<td>201 Created</td>
+</tr>
+<tr>
+<td>5</td>
+<td>GET</td>
+<td>
+200 OK
+<pre>
+{
+  "diffResultType": "ContentDoNotMatch",
+  "diffs": [
+    {
+      "offset": 0,
+      "length": 1
+    },
+    {
+      "offset": 2,
+      "length": 2
+    }
+  ]
+}
+</pre>
+</td>
+<tr>
+<td>6</td>
+<td>PUT left
+<pre>
+{
+   "data": "AAA="
+}
+</pre>
+<td>
+201 Created
+</td>
+</tr>
+<tr>
+<td>7</td>
+<td>GET</td>
+<td>
+200 OK
+<pre>
+{
+  "diffResultType": "SizeDoNotMatch"
+}
+</pre>
+</tr>
+</tbody>
+</table>
