@@ -4,6 +4,6 @@ npm install
 tsc
 
 Remove-Item .out -Recurse -Force -ErrorAction:Ignore
-dotnet publish -c Release -o .\.out
+dotnet publish -c Release -o .out
 
 docker-compose build

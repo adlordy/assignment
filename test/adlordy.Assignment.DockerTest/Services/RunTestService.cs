@@ -2,11 +2,9 @@
 using adlordy.Assignment.DockerTest.Options;
 using Docker.DotNet;
 using Docker.DotNet.Models;
-using Docker.DotNet.X509;
 using Microsoft.Extensions.Options;
 using System;
 using System.IO;
-using System.Security.Cryptography.X509Certificates;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -20,9 +18,7 @@ namespace adlordy.Assignment.DockerTest.Services
 
         public RunTestService(IOptions<DockerOptions> options, TestResultsParser parser)
         {
-            var credentials = new CertificateCredentials(new X509Certificate2(options.Value.CertificatePath));
-            credentials.ServerCertificateValidationCallback = (o, c, ch, er) => true;
-            var config = new DockerClientConfiguration(new Uri(options.Value.DockerUrl), credentials);
+            var config = new DockerClientConfiguration(new Uri("unix:///var/run/docker.sock"));
             _client = config.CreateClient();
             _imageName = options.Value.ImageName;
             _parser = parser;
