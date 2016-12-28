@@ -33,7 +33,15 @@ Upload code to a public repository using GIT.
 <tr>
 <td>1</td>
 <td>
-PUT left
+GET /v1/diff/1
+</td>
+<td>404 Not Found</td>
+</tr>
+<tr>
+<tr>
+<td>2</td>
+<td>
+PUT /v1/diff/1/left
 <pre>
 {
   "data": "AAAAAA=="
@@ -43,9 +51,18 @@ PUT left
 <td>201 Created</td>
 </tr>
 <tr>
-<td>2</td>
+<tr>
+<td>3</td>
 <td>
-PUT right<pre>
+GET /v1/diff/1
+</td>
+<td>404 Not Found</td>
+</tr>
+<tr>
+<tr>
+<td>4</td>
+<td>
+PUT /v1/diff/1/right<pre>
 {
   "data": "AAAAAA=="
 }
@@ -54,8 +71,8 @@ PUT right<pre>
 <td>201 Created</td>
 </tr>
 <tr>
-<td>3</td>
-<td>GET</td>
+<td>5</td>
+<td>GET /v1/diff/1</td>
 <td>200 OK
 <pre>
 {
@@ -65,16 +82,18 @@ PUT right<pre>
 </td>
 </tr>
 <tr>
-<td>4</td><td>PUT right
+<td>6</td>
+<td>PUT /v1/diff/1/right
 <pre>
 {
   "data": "AQABAQ=="
-}</pre>
+}
+</pre>
 <td>201 Created</td>
 </tr>
 <tr>
-<td>5</td>
-<td>GET</td>
+<td>7</td>
+<td>GET /v1/diff/1</td>
 <td>
 200 OK
 <pre>
@@ -94,8 +113,8 @@ PUT right<pre>
 </pre>
 </td>
 <tr>
-<td>6</td>
-<td>PUT left
+<td>8</td>
+<td>PUT /v1/diff/1/left
 <pre>
 {
    "data": "AAA="
@@ -106,8 +125,8 @@ PUT right<pre>
 </td>
 </tr>
 <tr>
-<td>7</td>
-<td>GET</td>
+<td>9</td>
+<td>GET /v1/diff/1</td>
 <td>
 200 OK
 <pre>
@@ -115,6 +134,18 @@ PUT right<pre>
   "diffResultType": "SizeDoNotMatch"
 }
 </pre>
+</tr>
+<tr>
+<td>10</td>
+<td>PUT /v1/diff/1/left
+<pre>
+{
+   "data": null
+}
+</pre>
+<td>
+400 Bad Request
+</td>
 </tr>
 </tbody>
 </table>
