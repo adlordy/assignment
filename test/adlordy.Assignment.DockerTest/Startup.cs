@@ -12,6 +12,8 @@ namespace adlordy.Assignment.DockerTest
 {
     public class Startup
     {
+        protected readonly IConfigurationRoot configuration;
+
         public Startup(IHostingEnvironment env)
         {
             var builder = new ConfigurationBuilder()
@@ -20,14 +22,14 @@ namespace adlordy.Assignment.DockerTest
                 .AddJsonFile($"appsettings.{env.EnvironmentName}.json", optional: true)
                 .AddEnvironmentVariables();
 
-            Configuration = builder.Build();
+            configuration = builder.Build();
         }
-        private IConfigurationRoot Configuration;
+        
 
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddOptions();
-            services.Configure<DockerOptions>(Configuration.GetSection("Docker"));
+            services.Configure<DockerOptions>(configuration.GetSection("Docker"));
             services.AddMvc()
                 .AddJsonOptions(options => options.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver());
             services.AddScoped<RunTestService>();
