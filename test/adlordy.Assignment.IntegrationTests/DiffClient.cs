@@ -19,7 +19,7 @@ namespace adlordy.Assignment.IntegrationTests
         public DiffClient(string url)
         {
             _url = url;
-            _client = new HttpClient();
+            _client = new HttpClient {Timeout = TimeSpan.FromSeconds(5)};
             _serializer = JsonSerializer.CreateDefault(new JsonSerializerSettings
             {
                 ContractResolver = new CamelCasePropertyNamesContractResolver()
@@ -53,7 +53,7 @@ namespace adlordy.Assignment.IntegrationTests
         {
             var response = await _client.PutAsJsonAsync(url, new DiffModel { Data = data }, _serializer);
             if (response.StatusCode != HttpStatusCode.Accepted && response.StatusCode != HttpStatusCode.Created)
-                throw new ArgumentException("Endpoint did not accept request. Status Code: "+response.StatusCode);
+                throw new ArgumentException("Endpoint did not accept request. Status Code: " + response.StatusCode);
         }
 
         private string CreateGetUri(string id)

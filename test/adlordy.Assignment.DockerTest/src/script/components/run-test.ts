@@ -9,7 +9,7 @@
     }
     inProgress: boolean;
     error: any;
-    url = "http://192.168.1.110:5000";
+    url = "http://public-ip:5000";
     results: TestResults;
 
     allPassed() {

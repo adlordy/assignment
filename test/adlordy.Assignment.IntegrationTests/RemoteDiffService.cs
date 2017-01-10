@@ -9,7 +9,7 @@ namespace adlordy.Assignment.IntegrationTests
 {
     internal class RemoteDiffService : IDiffService
     {
-        private DiffClient _client;
+        private readonly DiffClient _client;
         private int _seed;
 
         public RemoteDiffService(DiffClient client, int seed)
