@@ -31,7 +31,14 @@ gulp.task("html", function () {
     .pipe(gulp.dest("wwwroot"));
 })
 
-gulp.task("build", ["vendor:js", "vendor:css", "vendor:fonts", "html"], function () { });
+gulp.task("images", function () {
+    return gulp.src([
+        "src/images/**/*.*",
+    ])
+    .pipe(gulp.dest("wwwroot"));
+})
+
+gulp.task("build", ["vendor:js", "vendor:css", "vendor:fonts", "html","images"], function () { });
 
 gulp.task("default", ["build"], function () { });
 

@@ -3,5 +3,5 @@ services:
     test:
         build: .
         environment:
-          - URL=http://192.168.1.110:5000
+          - URL=http://192.168.240.254:5000
     

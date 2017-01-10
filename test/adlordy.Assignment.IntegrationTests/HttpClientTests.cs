@@ -37,21 +37,21 @@ namespace adlordy.Assignment.IntegrationTests
             Assert.Null(result);
         }
 
-        [Fact]
-        public void TestBadRequest_WhenDataIsNull()
-        {
-            Assert.Throws<ArgumentException>(() =>
-            {
-                try
-                {
-                    _client.PutLeftAsync("4", null).Wait();
-                }
-                catch (AggregateException ex)
-                {
-                    throw ex.Flatten().InnerExceptions.First();
-                }
-            });
-        }
+        //[Fact]
+        //public void TestBadRequest_WhenDataIsNull()
+        //{
+        //    Assert.Throws<ArgumentException>(() =>
+        //    {
+        //        try
+        //        {
+        //            _client.PutLeftAsync("4", null).Wait();
+        //        }
+        //        catch (AggregateException ex)
+        //        {
+        //            throw ex.Flatten().InnerExceptions.First();
+        //        }
+        //    });
+        //}
 
         [Theory]
         [InlineData("5", 2)]
